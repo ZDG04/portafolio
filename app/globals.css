@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+/* Paleta: lavanda cristalina + noche con rosa sakura */
+:root {
+  --bg: #0b0e1d;
+  --bg2: #12162b;
+  --card: rgb(255 255 255 / 0.055);
+  --line: rgb(190 170 255 / 0.18);
+  --tx: #ece8ff;
+  --mu: #a9a4c8;
+  --lav: #b79cff;
+  --pink: #ff4fa3;
+  --glow: rgb(255 79 163 / 0.35);
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f1ecff; --bg2: #e6deff; --card: rgb(255 255 255 / 0.6);
+    --line: rgb(110 80 200 / 0.2); --tx: #1d1740; --mu: #5d557f;
+    --lav: #6f4fe0; --pink: #d6338a; --glow: rgb(155 125 255 / 0.35);
+    color-scheme: light;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg2: var(--bg2);
+  --color-card: var(--card);
+  --color-line: var(--line);
+  --color-tx: var(--tx);
+  --color-mu: var(--mu);
+  --color-lav: var(--lav);
+  --color-pink: var(--pink);
+  --font-serif: var(--font-cormorant), Georgia, serif;
+  --font-mono: var(--font-jb), ui-monospace, Menlo, monospace;
+  --shadow-glow: 0 10px 40px var(--glow);
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+body {
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(600px 400px at 85% 5%, rgb(155 125 255 / 0.22), transparent),
+    radial-gradient(500px 400px at 5% 40%, rgb(255 79 163 / 0.12), transparent);
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+@layer components {
+  .glass {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 1.25rem;
+    backdrop-filter: blur(14px);
+  }
+  .grad { background: linear-gradient(135deg, #9b7dff, #ff4fa3); }
+  .grad-text {
+    background: linear-gradient(135deg, #9b7dff, #ff4fa3);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: .5rem;
+    padding: .75rem 1.4rem; border-radius: 9999px;
+    font-size: .8rem; font-weight: 700; cursor: pointer;
+    border: 1px solid var(--line); background: var(--card);
+    transition: transform .25s, box-shadow .25s;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: linear-gradient(135deg, #9b7dff, #ff4fa3); color: #fff; border: 0; box-shadow: var(--shadow-glow); }
+}
+
+/* Aparición al hacer scroll */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s, transform .7s; }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+}
